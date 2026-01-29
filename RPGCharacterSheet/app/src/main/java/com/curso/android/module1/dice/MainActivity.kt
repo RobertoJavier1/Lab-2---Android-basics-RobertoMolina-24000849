@@ -49,6 +49,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 
+
 // --- Compose Runtime (Estado y Efectos) ---
 // Estas son las APIs para manejar estado reactivo en Compose
 import androidx.compose.runtime.Composable
@@ -65,6 +66,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -346,7 +348,8 @@ fun DiceRollerScreen() {
     val totalstat = vit + dex + wis
 
     //validation rule logic
-    val finalMessage = when {
+    val finalMessage = when
+    {
         totalstat < 30 -> "Re-roll recommended!"
         totalstat >= 50 -> "Godlike!"
         else -> ""
@@ -357,6 +360,7 @@ fun DiceRollerScreen() {
         totalstat >= 50 -> Color(0xFFFFD700)
         else -> MaterialTheme.colorScheme.onSurface //it adapts to the surface color to chose the letter color
     }
+
 
 
     /**
@@ -472,6 +476,7 @@ fun DiceRollerScreen() {
 
             setValue((MIN_DICE_VALUE..MAX_DICE_VALUE).random())//final value
             rollingStat = null
+
         }
     }
 
@@ -522,21 +527,24 @@ fun DiceRollerScreen() {
                 name="Vit",
                 value = vit,
                 isRolling = (rollingStat == "Vit"),
-                onRoll = {rollStat("Vit") {vit=it} } //it is and Int and is the final result of the dice
+                onRoll = {rollStat("Vit") {vit=it} },
+                buttonColor = Color(0xFF2E7D32) //it is and Int and is the final result of the dice
             )
 
             StatRow(
                 name="Dex",
                 value = dex,
                 isRolling = (rollingStat == "Dex"),
-                onRoll = {rollStat("Dex") {dex=it} }
+                onRoll = {rollStat("Dex") {dex=it}},
+                buttonColor = Color.Blue
             )
 
             StatRow(
                 name="Wis",
                 value = wis,
                 isRolling = (rollingStat == "Wis"),
-                onRoll = {rollStat("Wis") {wis=it} }
+                onRoll = {rollStat("Wis") {wis=it} },
+                buttonColor = Color(0xFF6A1B9A)
             )
 
 
@@ -632,21 +640,23 @@ fun DiceRollerScreen() {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            //text for the suggest
-            Text(
-                text = finalMessage,
-                color = messageColor,
-                fontWeight = FontWeight.Bold
-            )
+            //text for the suggest it only shows when the app finish re rolling
+            val showFinalMessage = (rollingStat == null)
+            if(showFinalMessage){
+                Text(
+                    text = finalMessage,
+                    color = messageColor,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
 
 
-
 //reusable state
 @Composable
-fun StatRow(name: String, value: Int,isRolling: Boolean, onRoll: () -> Unit){ //Unit is equivalent to void on java
+fun StatRow(name: String, value: Int,isRolling: Boolean, onRoll: () -> Unit,buttonColor:Color){ //Unit is equivalent to void on java
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -675,7 +685,13 @@ fun StatRow(name: String, value: Int,isRolling: Boolean, onRoll: () -> Unit){ //
                 fontWeight = FontWeight.Bold
             )
 
-            Button(onClick = onRoll,enabled = !isRolling) {
+            Button(onClick = onRoll,enabled = !isRolling, colors = ButtonDefaults.buttonColors(containerColor = buttonColor)) {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = "Roll",
+                    modifier = Modifier.size(24.dp)
+                )
+
                 Text(
                     if(isRolling)
                         "Rolling.."
