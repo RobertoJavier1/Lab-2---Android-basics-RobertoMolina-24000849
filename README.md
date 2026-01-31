@@ -9,3 +9,6 @@ Este repositorio contiene los ejercicios del Laboratorio 2.
 
 - **TrafficLightSimulator**: Segundo ejercicio del laboratorio.  
   En este proyecto se realizó la simulación de un semáforo.
+
+  ## Video explicación
+  **Video explicación:** https://youtu.be/9zrojgcrjCI
