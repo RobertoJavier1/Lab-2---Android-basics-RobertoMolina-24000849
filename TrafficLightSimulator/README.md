@@ -25,3 +25,6 @@ El estado del semáforo se maneja mediante **estado reactivo** y `LaunchedEffect
 | UI limpia | Semáforo centrado con espaciado adecuado | ✅ |
 
 ---
+
+  ## Video explicación
+   **Video ejercicio:** https://youtu.be/JKWDbLIJ2Mg
