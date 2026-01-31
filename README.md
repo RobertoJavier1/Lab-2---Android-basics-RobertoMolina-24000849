@@ -11,4 +11,5 @@ Este repositorio contiene los ejercicios del Laboratorio 2.
   En este proyecto se realizó la simulación de un semáforo.
 
   ## Video explicación
-  **Video explicación:** https://youtu.be/9zrojgcrjCI
+  **Video ejercicio 1:** https://youtu.be/5Qt0UAghlxU
+   **Video ejercicio 2:** https://youtu.be/JKWDbLIJ2Mg
